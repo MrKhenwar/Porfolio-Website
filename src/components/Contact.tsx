@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { Mail, Phone, MapPin, Send, Github, Linkedin, Twitter, X } from 'lucide-react'
+import { Mail, Phone, MapPin, Send, Github, Linkedin, Twitter, X, Download } from 'lucide-react'
 import { useState } from 'react'
 
 function Contact() {
@@ -19,8 +19,32 @@ function Contact() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    // Handle form submission logic here
-    console.log('Form submitted:', formData)
+
+    // Create email body with form data
+    const emailBody = `Hi Vidit,\n\n` +
+      `Name: ${formData.name}\n` +
+      `Email: ${formData.email}\n` +
+      `Subject: ${formData.subject}\n\n` +
+      `Message:\n${formData.message}\n\n` +
+      `Best regards,\n${formData.name}`
+
+    // Create mailto link
+    const mailtoLink = `mailto:viditkhenwar@gmail.com?subject=${encodeURIComponent(formData.subject || 'Contact from Portfolio')}&body=${encodeURIComponent(emailBody)}`
+
+    // Open email client
+    window.location.href = mailtoLink
+
+    // Clear form
+    setFormData({ name: '', email: '', subject: '', message: '' })
+  }
+
+  const handleDownloadResume = () => {
+    // You'll need to place your resume file in the public folder
+    const resumeUrl = '/resume/Vidit_Raj_Khenwar_Resume.pdf'
+    const link = document.createElement('a')
+    link.href = resumeUrl
+    link.download = 'Vidit_Raj_Khenwar_Resume.pdf'
+    link.click()
   }
 
   const containerVariants = {
@@ -217,15 +241,28 @@ function Contact() {
                 />
               </div>
 
-              <motion.button
-                type="submit"
-                className="w-full btn-primary inline-flex items-center justify-center gap-2"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <Send size={20} />
-                Send Message
-              </motion.button>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <motion.button
+                  type="submit"
+                  className="flex-1 btn-primary inline-flex items-center justify-center gap-2"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <Send size={20} />
+                  Send Message
+                </motion.button>
+
+                <motion.button
+                  type="button"
+                  onClick={handleDownloadResume}
+                  className="flex-1 bg-gray-700 hover:bg-gray-600 text-white px-6 py-3 rounded-lg inline-flex items-center justify-center gap-2 transition-colors border border-gray-600 hover:border-gray-500"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <Download size={20} />
+                  Download Resume
+                </motion.button>
+              </div>
             </form>
           </motion.div>
         </motion.div>

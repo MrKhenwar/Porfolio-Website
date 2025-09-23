@@ -104,9 +104,20 @@ function useIsMobile(max = 768) {
   return isMobile
 }
 
+function useIsSafari() {
+  const [isSafari, setIsSafari] = useState(false)
+  useEffect(() => {
+    const userAgent = navigator.userAgent.toLowerCase()
+    const isSafariBrowser = /safari/i.test(userAgent) && !/chrome|chromium|firefox|edg/i.test(userAgent)
+    setIsSafari(isSafariBrowser)
+  }, [])
+  return isSafari
+}
+
 function WelcomeScreen({ onComplete }: WelcomeScreenProps) {
   const [progress, setProgress] = useState(0)
   const isMobile = useIsMobile()
+  const isSafari = useIsSafari()
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -125,20 +136,30 @@ function WelcomeScreen({ onComplete }: WelcomeScreenProps) {
   return (
     <div className="fixed inset-0 z-50 bg-black flex items-center justify-center overflow-hidden">
       <Canvas
-        camera={{ position: [0, 0, 6], fov: 75 }}
+        camera={{ position: [0, 0, 6] as [number, number, number], fov: 75 }}
+        dpr={(isMobile || isSafari) ? [1, 1.5] as [number, number] : [1, 2] as [number, number]}
+        performance={{ min: isSafari ? 0.3 : 0.5 }}
+        gl={{
+          powerPreference: (isMobile || isSafari) ? 'low-power' : 'high-performance',
+          antialias: !(isMobile || isSafari),
+          alpha: false,
+          preserveDrawingBuffer: false,
+          premultipliedAlpha: false,
+          stencil: false,
+        }}
         style={{
           position: 'absolute', top: 0, left: 0, width: "100%", height: "100%", zIndex: 1
         }}>
-        <ambientLight intensity={0.4} />
-        <directionalLight position={[10, 10, 5]} intensity={0.8} />
-        <pointLight position={[5, 5, 5]} intensity={0.6} color="#ffffff" />
+        <ambientLight intensity={(isMobile || isSafari) ? 0.6 : 0.4} />
+        <directionalLight position={[10, 10, 5]} intensity={(isMobile || isSafari) ? 0.6 : 0.8} />
+        {!(isMobile || isSafari) && <pointLight position={[5, 5, 5]} intensity={0.6} color="#ffffff" />}
 
-        {/* Dense starfield around */}
+        {/* Optimized starfield for mobile/Safari */}
         <Stars
-          radius={100}
-          depth={50}
-          count={2000}
-          factor={4}
+          radius={(isMobile || isSafari) ? 80 : 100}
+          depth={(isMobile || isSafari) ? 30 : 50}
+          count={(isMobile || isSafari) ? 300 : 2000}
+          factor={(isMobile || isSafari) ? 2 : 4}
           saturation={0}
           fade={true}
         />

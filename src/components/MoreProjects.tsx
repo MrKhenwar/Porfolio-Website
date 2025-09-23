@@ -13,12 +13,32 @@ function MoreProjects() {
   }
 
   const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
+    hidden: { y: 20, opacity: 0, scale: 0.9 },
     visible: {
       y: 0,
       opacity: 1,
+      scale: 1,
       transition: {
-        duration: 0.5
+        duration: 0.6,
+        ease: "easeOut"
+      }
+    }
+  }
+
+  const textOverlayVariants = {
+    hidden: {
+      opacity: 0,
+      y: 50,
+      backdropFilter: "blur(0px)"
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      backdropFilter: "blur(8px)",
+      transition: {
+        duration: 0.8,
+        ease: "easeOut",
+        delay: 0.3 // Delay for Earth to settle
       }
     }
   }
@@ -70,13 +90,13 @@ function MoreProjects() {
   ]
 
   return (
-    <section id="more-projects" className="py-20 px-6">
+    <section id="more-projects" className="py-20 px-6 relative z-30">
       <div className="container mx-auto max-w-6xl">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          className="text-center mb-16 relative z-40"
         >
           <h2 className="text-4xl font-bold mb-4">
             More <span className="red-gradient-text">Projects</span>
@@ -90,14 +110,24 @@ function MoreProjects() {
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          transition={{
+            staggerChildren: 0.1,
+            delayChildren: 0.5 // Delay to let Earth settle first
+          }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 relative z-40"
         >
           {additionalProjects.map((project) => (
             <motion.div
               key={project.id}
-              variants={itemVariants}
-              className="card p-6 hover-glow hover-3d"
-              whileHover={{ y: -5 }}
+              variants={textOverlayVariants}
+              className="card p-6 hover-glow hover-3d backdrop-blur-sm bg-black/30 border border-gray-700/50"
+              whileHover={{
+                y: -8,
+                scale: 1.02,
+                backdropFilter: "blur(12px)",
+                borderColor: "rgba(239, 68, 68, 0.3)"
+              }}
+              transition={{ duration: 0.3 }}
             >
               <h3 className="text-xl font-bold mb-3 text-white">{project.title}</h3>
               <p className="text-gray-300 mb-4 leading-relaxed text-sm">{project.description}</p>

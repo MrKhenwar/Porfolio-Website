@@ -1,7 +1,41 @@
-import { useRef, useEffect, useState } from 'react'
+import { useRef, useEffect, useState, useMemo } from 'react'
 import { Canvas, useFrame, useLoader, useThree } from '@react-three/fiber'
 import { Sphere, Stars, OrbitControls, Html, Text } from '@react-three/drei'
 import * as THREE from 'three'
+
+// Enhanced mobile detection
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => {
+      const userAgent = navigator.userAgent.toLowerCase()
+      const isMobileDevice = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent)
+      const isSmallScreen = window.innerWidth < 768
+      const isTouchDevice = 'ontouchstart' in window
+
+      setIsMobile(isMobileDevice || (isSmallScreen && isTouchDevice))
+    }
+
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
+  return isMobile
+}
+
+function useIsSafari() {
+  const [isSafari, setIsSafari] = useState(false)
+
+  useEffect(() => {
+    const userAgent = navigator.userAgent.toLowerCase()
+    const isSafariBrowser = /safari/i.test(userAgent) && !/chrome|chromium|firefox|edg/i.test(userAgent)
+    setIsSafari(isSafariBrowser)
+  }, [])
+
+  return isSafari
+}
 
 function easeOutQuart(t: number): number {
   return 1 - Math.pow(1 - t, 4)
@@ -20,13 +54,15 @@ interface EarthProps {
   currentSection: string
   onClick: () => void
   nameClickCount?: number
+  isSafari?: boolean
 }
 
-function Earth({ currentSection, onClick, nameClickCount = 0 }: EarthProps) {
+function Earth({ currentSection, onClick, nameClickCount = 0, isSafari = false }: EarthProps) {
   const outerMeshRef = useRef<THREE.Mesh>(null)
   const innerMeshRef = useRef<THREE.Mesh>(null)
   const groupRef = useRef<THREE.Group>(null)
   const textOrbitRef = useRef<THREE.Group>(null)
+  const isMobile = useIsMobile()
 
   const [clickCount, setClickCount] = useState(0)
   const [isBursting, setIsBursting] = useState(false)
@@ -35,8 +71,21 @@ function Earth({ currentSection, onClick, nameClickCount = 0 }: EarthProps) {
   const [isReforming, setIsReforming] = useState(false)
   const [showKaboom, setShowKaboom] = useState(false)
 
-  const dayTexture = useLoader(THREE.TextureLoader, '/textures/earth_day.jpg')
-  const nightTexture = useLoader(THREE.TextureLoader, '/textures/back.jpg')
+  // Optimize texture loading for mobile
+  const dayTexture = useLoader(THREE.TextureLoader, '/textures/earth_day.jpg', (texture) => {
+    if (isMobile) {
+      texture.generateMipmaps = false
+      texture.minFilter = THREE.LinearFilter
+      texture.magFilter = THREE.LinearFilter
+    }
+  })
+  const nightTexture = useLoader(THREE.TextureLoader, '/textures/back.jpg', (texture) => {
+    if (isMobile) {
+      texture.generateMipmaps = false
+      texture.minFilter = THREE.LinearFilter
+      texture.magFilter = THREE.LinearFilter
+    }
+  })
 
   useEffect(() => {
     if (nameClickCount > 0) {
@@ -199,36 +248,37 @@ function Earth({ currentSection, onClick, nameClickCount = 0 }: EarthProps) {
             />
           </Sphere>
 
-          {/* Outer Day Sphere */}
-          <Sphere ref={outerMeshRef} args={[3, 64, 64]}>
+          {/* Outer Day Sphere - Optimized for mobile */}
+          <Sphere ref={outerMeshRef} args={[3, (isMobile || isSafari) ? 32 : 64, (isMobile || isSafari) ? 32 : 64]}>
             <meshStandardMaterial
               map={dayTexture}
               roughness={0.7}
               metalness={0.05}
               emissive={new THREE.Color('#111122')}
-              emissiveIntensity={0.25}
+              emissiveIntensity={(isMobile || isSafari) ? 0.15 : 0.25}
               transparent
               opacity={0.98}
             />
           </Sphere>
 
-          {/* Inner Night Sphere */}
-          <Sphere ref={innerMeshRef} args={[2.95, 64, 64]}>
-            <sphereGeometry args={[2.95, 64, 64]} />
-<meshStandardMaterial map={nightTexture} side={THREE.FrontSide} transparent opacity={0.6} />
+          {/* Inner Night Sphere - Simplified for mobile */}
+          {!isMobile && (
+            <Sphere ref={innerMeshRef} args={[2.95, 64, 64]}>
+              <meshStandardMaterial map={nightTexture} side={THREE.FrontSide} transparent opacity={0.6} />
+            </Sphere>
+          )}
 
-
-          </Sphere>
-
-          {/* Atmospheric Outer Sphere */}
-          <Sphere args={[3.1, 32, 32]}>
-            <meshBasicMaterial
-              color={new THREE.Color(0x87ceeb)}
-              transparent
-              opacity={0.03}
-              side={THREE.FrontSide}
-            />
-          </Sphere>
+          {/* Atmospheric Outer Sphere - Reduced on mobile */}
+          {!isMobile && (
+            <Sphere args={[3.1, 32, 32]}>
+              <meshBasicMaterial
+                color={new THREE.Color(0x87ceeb)}
+                transparent
+                opacity={0.03}
+                side={THREE.FrontSide}
+              />
+            </Sphere>
+          )}
         </>
       )}
 
@@ -391,33 +441,61 @@ function Scene3D({
   currentSection: string
   nameClickCount: number
 }) {
+  const isMobile = useIsMobile()
+  const isSafari = useIsSafari()
+
   const handleEarthClick = () => {
     console.log('Earth clicked! Current section:', currentSection)
   }
 
+  // Mobile-optimized settings
+  const canvasProps = useMemo(() => ({
+    camera: { position: [0, 0, 8] as [number, number, number], fov: 75 },
+    dpr: (isMobile || isSafari) ? [1, 1.5] as [number, number] : [1, 2] as [number, number], // Lower pixel ratio on mobile/Safari
+    performance: { min: isSafari ? 0.3 : 0.5 }, // Even lower performance threshold for Safari
+    gl: {
+      powerPreference: (isMobile || isSafari) ? 'low-power' : 'high-performance',
+      antialias: !(isMobile || isSafari), // Disable antialiasing on mobile/Safari
+      alpha: false, // Disable alpha for better Safari performance
+      preserveDrawingBuffer: false, // Disable for better Safari performance
+      premultipliedAlpha: false, // Disable for Safari compatibility
+      stencil: false, // Disable stencil buffer for Safari
+      depth: true, // Keep depth buffer
+    },
+  }), [isMobile, isSafari])
+
   return (
     <Canvas
-      camera={{ position: [0, 0, 8], fov: 75 }}
+      {...canvasProps}
       style={{
         position: 'fixed',
         top: 0,
         left: 0,
         width: '100%',
         height: '100%',
-        zIndex: 1,
+        zIndex: 5,
         pointerEvents: 'none',
       }}
     >
       <CameraController currentSection={currentSection} />
 
-      <ambientLight intensity={0.35} />
-      <directionalLight position={[10, 10, 5]} intensity={1} />
-      <pointLight position={[5, 5, 5]} intensity={0.4} color="#ffffff" />
-      <pointLight position={[-5, -5, 2]} intensity={0.15} color="#4f46e5" />
+      {/* Simplified lighting for mobile/Safari */}
+      <ambientLight intensity={(isMobile || isSafari) ? 0.6 : 0.35} />
+      <directionalLight position={[10, 10, 5]} intensity={(isMobile || isSafari) ? 0.9 : 1} />
+      {!(isMobile || isSafari) && <pointLight position={[5, 5, 5]} intensity={0.4} color="#ffffff" />}
+      {!(isMobile || isSafari) && <pointLight position={[-5, -5, 2]} intensity={0.15} color="#4f46e5" />}
 
-      <Stars radius={500} depth={100} count={2000} factor={6} saturation={0} fade />
+      {/* Dramatically reduced stars on mobile/Safari */}
+      <Stars
+        radius={(isMobile || isSafari) ? 300 : 500}
+        depth={(isMobile || isSafari) ? 50 : 100}
+        count={(isMobile || isSafari) ? 200 : 2000}
+        factor={(isMobile || isSafari) ? 2 : 6}
+        saturation={0}
+        fade
+      />
 
-      <Earth currentSection={currentSection} onClick={handleEarthClick} nameClickCount={nameClickCount} />
+      <Earth currentSection={currentSection} onClick={handleEarthClick} nameClickCount={nameClickCount} isSafari={isSafari} />
 
       <OrbitControls enableZoom={false} enablePan={false} enableRotate={false} autoRotate={false} enabled={false} />
     </Canvas>
