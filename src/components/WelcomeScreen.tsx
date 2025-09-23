@@ -206,7 +206,7 @@ function WelcomeScreen({ onComplete }: WelcomeScreenProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 2, duration: 0.5 }}
-            className="text-gray-400 text-sm mt-4"
+            className="text-gray-400 text-sm mt-4"//hello
           >
             Preparing your experience... {Math.round(progress)}%
           </motion.p>
