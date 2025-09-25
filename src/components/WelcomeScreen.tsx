@@ -182,7 +182,7 @@ function WelcomeScreen({ onComplete }: WelcomeScreenProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.8, duration: 1.5 }}
-            className={`${isMobile ? 'text-2xl' : 'text-4xl'} text-white font-light tracking-wider`}
+            className={`${isMobile ? 'text-2xl' : 'text-4xl'} text-white font-light tracking-wider font-poppins gradient-text`}
           >
             TO VIDIT'S WORLD
           </motion.p>
@@ -206,9 +206,9 @@ function WelcomeScreen({ onComplete }: WelcomeScreenProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 2, duration: 0.5 }}
-            className="text-gray-400 text-sm mt-4"//hello
+            className="text-gray-400 text-sm mt-4 font-poppins"
           >
-            Preparing your experience... {Math.round(progress)}%
+            <span className="italic-accent">Preparing</span> your experience... <span className="font-jetbrains">{Math.round(progress)}%</span>
           </motion.p>
         </motion.div>
       </div>

@@ -98,11 +98,11 @@ function MoreProjects() {
           transition={{ duration: 0.8 }}
           className="text-center mb-16 relative z-40"
         >
-          <h2 className="text-4xl font-bold mb-4">
-            More <span className="red-gradient-text">Projects</span>
+          <h2 className="mixed-font-header text-4xl font-bold mb-4 font-poppins">
+            More <span className="serif-accent font-playfair italic">Projects</span>
           </h2>
-          <p className="text-gray-300 text-lg max-w-2xl mx-auto">
-            Additional projects that demonstrate my versatility and commitment to continuous learning.
+          <p className="text-gray-300 text-lg max-w-2xl mx-auto font-poppins">
+            Additional projects that demonstrate my <span className="italic-accent">versatility</span> and commitment to <span className="emphasis-text underline-accent">continuous learning</span>.
           </p>
         </motion.div>
 

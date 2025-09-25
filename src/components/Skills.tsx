@@ -76,11 +76,11 @@ function Skills() {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl font-bold mb-4">
-            Technical <span className="red-gradient-text">Skills</span>
+          <h2 className="mixed-font-header text-4xl font-bold mb-4 font-poppins">
+            Technical <span className="serif-accent font-playfair italic">Skills</span>
           </h2>
-          <p className="text-gray-300 text-lg max-w-2xl mx-auto">
-            A comprehensive overview of my technical expertise and the technologies I work with.
+          <p className="elegant-quote text-lg max-w-2xl mx-auto font-playfair">
+            A <span className="italic-accent">comprehensive overview</span> of my technical <span className="emphasis-text underline-accent">expertise</span> and the technologies I work with.
           </p>
         </motion.div>
 
@@ -99,13 +99,13 @@ function Skills() {
             >
               <div className="flex items-center gap-3 mb-4">
                 {category.icon}
-                <h3 className="text-xl font-bold text-white">{category.title}</h3>
+                <h3 className="text-xl font-bold text-white font-poppins hover-italic transition-all duration-300">{category.title}</h3>
               </div>
               <div className="flex flex-wrap gap-2">
                 {category.skills.map((skill) => (
                   <span
                     key={skill}
-                    className="px-3 py-1 bg-gray-700/50 text-gray-300 rounded-full text-sm hover:bg-red-500/20 hover:text-red-400 transition-colors"
+                    className="px-3 py-1 bg-gray-700/50 text-gray-300 rounded-full text-sm hover:bg-red-500/20 hover:text-red-400 transition-colors font-jetbrains"
                   >
                     {skill}
                   </span>
@@ -121,8 +121,8 @@ function Skills() {
           transition={{ duration: 0.8 }}
           className="card p-8"
         >
-          <h3 className="text-2xl font-bold mb-8 text-center">
-            Proficiency <span className="red-gradient-text">Levels</span>
+          <h3 className="text-2xl font-bold mb-8 text-center font-poppins">
+            Proficiency <span className="serif-accent font-playfair italic">Levels</span>
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {techStack.map((tech, index) => (
@@ -133,7 +133,7 @@ function Skills() {
                 transition={{ delay: index * 0.1, duration: 0.5 }}
                 className="flex items-center gap-4"
               >
-                <span className="text-white font-medium w-24 text-sm">{tech.name}</span>
+                <span className="text-white font-medium w-24 text-sm font-jetbrains">{tech.name}</span>
                 <div className="flex-1 bg-gray-700 rounded-full h-2 relative overflow-hidden">
                   <motion.div
                     className="h-full bg-gradient-to-r from-red-500 to-red-400 rounded-full"

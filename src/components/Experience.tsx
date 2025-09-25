@@ -91,12 +91,12 @@ function Experience() {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl font-bold mb-4 flex items-center justify-center gap-3">
+          <h2 className="mixed-font-header text-4xl font-bold mb-4 flex items-center justify-center gap-3 font-poppins">
             <Briefcase className="text-red-500" />
-            Professional <span className="red-gradient-text">Experience</span>
+            Professional <span className="serif-accent font-playfair italic">Experience</span>
           </h2>
-          <p className="text-gray-300 text-lg max-w-2xl mx-auto">
-            My journey in software development and the impactful projects I've contributed to.
+          <p className="elegant-quote text-lg max-w-2xl mx-auto font-playfair">
+            My <span className="italic-accent">journey</span> in software development and the <span className="emphasis-text underline-accent">impactful projects</span> I've contributed to.
           </p>
         </motion.div>
 
@@ -114,8 +114,8 @@ function Experience() {
             >
               <div className="flex flex-col lg:flex-row lg:items-start gap-6">
                 <div className="lg:w-1/3">
-                  <h3 className="text-2xl font-bold text-white mb-2">{exp.title}</h3>
-                  <h4 className="text-xl text-red-400 font-semibold mb-3">{exp.company}</h4>
+                  <h3 className="text-2xl font-bold text-white mb-2 font-poppins hover-italic transition-all duration-300">{exp.title}</h3>
+                  <h4 className="text-xl text-red-400 font-semibold mb-3 font-playfair italic">{exp.company}</h4>
                   <div className="flex items-center gap-2 text-gray-400 mb-2">
                     <Calendar size={16} />
                     <span className="text-sm">{exp.period}</span>
@@ -136,9 +136,9 @@ function Experience() {
                   </div>
                 </div>
                 <div className="lg:w-2/3">
-                  <p className="text-gray-300 leading-relaxed mb-4">{exp.description}</p>
+                  <p className="text-gray-300 leading-relaxed mb-4 font-poppins">{exp.description}</p>
                   <div className="space-y-2">
-                    <h5 className="text-white font-semibold mb-2">Key Achievements:</h5>
+                    <h5 className="text-white font-semibold mb-2 font-poppins">Key <span className="italic-accent">Achievements</span>:</h5>
                     {exp.achievements.map((achievement, idx) => (
                       <motion.div
                         key={idx}
@@ -148,7 +148,7 @@ function Experience() {
                         className="flex items-start gap-2"
                       >
                         <span className="text-red-500 mt-1">•</span>
-                        <span className="text-gray-300 text-sm">{achievement}</span>
+                        <span className="text-gray-300 text-sm font-poppins">{achievement}</span>
                       </motion.div>
                     ))}
                   </div>
@@ -167,8 +167,8 @@ function Experience() {
           transition={{ duration: 0.8 }}
           className="card p-8"
         >
-          <h3 className="text-2xl font-bold mb-6 text-center">
-            <span className="red-gradient-text">Education</span>
+          <h3 className="text-2xl font-bold mb-6 text-center font-poppins">
+            <span className="serif-accent font-playfair italic">Education</span>
           </h3>
           {education.map((edu, index) => (
             <motion.div
@@ -178,8 +178,8 @@ function Experience() {
               transition={{ duration: 0.6 }}
               className="text-center"
             >
-              <h4 className="text-xl font-bold text-white mb-2">{edu.degree}</h4>
-              <h5 className="text-lg text-red-400 font-semibold mb-2">{edu.institution}</h5>
+              <h4 className="text-xl font-bold text-white mb-2 font-poppins">{edu.degree}</h4>
+              <h5 className="text-lg text-red-400 font-semibold mb-2 font-playfair italic">{edu.institution}</h5>
               <div className="flex justify-center items-center gap-4 text-gray-400 mb-3">
                 <div className="flex items-center gap-1">
                   <Calendar size={16} />
@@ -190,7 +190,7 @@ function Experience() {
                   <span className="text-sm">{edu.location}</span>
                 </div>
               </div>
-              <p className="text-gray-300 mb-2">{edu.description}</p>
+              <p className="text-gray-300 mb-2 font-poppins">{edu.description}</p>
             </motion.div>
           ))}
         </motion.div>

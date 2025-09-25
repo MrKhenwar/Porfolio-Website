@@ -22,7 +22,7 @@ function App() {
   }
 
   return (
-    <div className="bg-black text-white font-inter overflow-x-hidden">
+    <div className="bg-black text-white font-poppins overflow-x-hidden">
       <Navbar />
       <main>
         <Hero />

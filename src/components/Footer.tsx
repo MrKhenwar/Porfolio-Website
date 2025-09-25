@@ -52,9 +52,9 @@ function Footer() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <div className="text-2xl font-bold red-gradient-text mb-4">&lt;VRK/&gt;</div>
-            <p className="text-gray-400 leading-relaxed mb-4">
-              Passionate Computer Science student crafting innovative digital experiences
+            <div className="text-2xl font-bold red-gradient-text mb-4 font-jetbrains">&lt;<span className="font-playfair italic">VRK</span>/&gt;</div>
+            <p className="text-gray-400 leading-relaxed mb-4 font-poppins">
+              <span className="italic-accent">Passionate</span> Computer Science student crafting <span className="emphasis-text underline-accent">innovative digital experiences</span>
               with cutting-edge technologies.
             </p>
             <div className="flex gap-3">
@@ -79,13 +79,13 @@ function Footer() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
-            <h3 className="text-white font-semibold mb-4">Quick Links</h3>
+            <h3 className="text-white font-semibold mb-4 font-poppins">Quick <span className="font-playfair italic">Links</span></h3>
             <ul className="space-y-2">
               {quickLinks.map((link, index) => (
                 <li key={index}>
                   <motion.a
                     href={link.href}
-                    className="text-gray-400 hover:text-red-400 transition-colors duration-300"
+                    className="text-gray-400 hover:text-red-400 transition-colors duration-300 font-poppins hover-italic"
                     whileHover={{ x: 5 }}
                   >
                     {link.name}
@@ -100,8 +100,8 @@ function Footer() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <h3 className="text-white font-semibold mb-4">Services</h3>
-            <ul className="space-y-2 text-gray-400">
+            <h3 className="text-white font-semibold mb-4 font-poppins"><span className="font-playfair italic">Services</span></h3>
+            <ul className="space-y-2 text-gray-400 font-poppins">
               <li>Web Development</li>
               <li>Mobile App Development</li>
               <li>Full Stack Solutions</li>
@@ -115,15 +115,15 @@ function Footer() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            <h3 className="text-white font-semibold mb-4">Get In Touch</h3>
-            <div className="space-y-2 text-gray-400 text-sm">
+            <h3 className="text-white font-semibold mb-4 font-poppins">Get In <span className="font-playfair italic">Touch</span></h3>
+            <div className="space-y-2 text-gray-400 text-sm font-poppins">
               <p>Greater Noida, India</p>
               <p>viditkhenwar@gmail.com</p>
               
             </div>
             <motion.a
               href="#contact"
-              className="inline-block mt-4 px-4 py-2 bg-red-500/20 text-red-400 rounded-lg hover:bg-red-500/30 transition-colors duration-300"
+              className="inline-block mt-4 px-4 py-2 bg-red-500/20 text-red-400 rounded-lg hover:bg-red-500/30 transition-colors duration-300 font-poppins hover-italic"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -140,9 +140,9 @@ function Footer() {
               transition={{ duration: 0.6 }}
               className="flex items-center gap-2 text-gray-400 text-sm"
             >
-              <span>© {currentYear} Vidit Raj Khenwar. Made with</span>
+              <span className="font-poppins">© {currentYear} <span className="font-playfair italic">Vidit Raj Khenwar</span>. Made with</span>
               <Heart className="text-red-500" size={16} />
-              <span>and lots of coffee ☕</span>
+              <span className="font-poppins">and lots of <span className="italic-accent">coffee</span> ☕</span>
             </motion.div>
 
             <motion.button
@@ -165,7 +165,7 @@ function Footer() {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.6 }}
-          className="text-gray-500 text-xs"
+          className="text-gray-500 text-xs font-poppins"
         >
           Designed and developed with passion. All rights reserved.
         </motion.p>

@@ -114,12 +114,12 @@ function Contact() {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl font-bold mb-4 flex items-center justify-center gap-3">
+          <h2 className="mixed-font-header text-4xl font-bold mb-4 flex items-center justify-center gap-3 font-poppins">
             <Mail className="text-red-500" />
-            Get In <span className="red-gradient-text">Touch</span>
+            Get In <span className="serif-accent font-playfair italic">Touch</span>
           </h2>
-          <p className="text-gray-300 text-lg max-w-2xl mx-auto">
-            Ready to work together? I'd love to hear about your project and discuss how we can bring your ideas to life.
+          <p className="elegant-quote text-lg max-w-2xl mx-auto font-playfair">
+            <span className="italic-accent">Ready to work together?</span> I'd love to hear about your project and discuss how we can bring <span className="emphasis-text underline-accent">your ideas to life</span>.
           </p>
         </motion.div>
 

@@ -50,11 +50,11 @@ function Hero() {
             transition={{ delay: 0.3, duration: 0.8 }}
             className="mb-6"
           >
-            <span className="text-red-500 text-lg font-mono">&gt; Hello World, I'm</span>
+            <span className="code-style text-lg font-jetbrains">&gt; Hello World, <span className="italic-accent">I'm</span></span>
           </motion.div>
 
           <motion.h1
-            className="text-7xl md:text-8xl font-black mb-6 gradient-text cursor-pointer hover:scale-105 transition-transform duration-300"
+            className="text-7xl md:text-8xl font-poppins font-black mb-6 gradient-text cursor-pointer hover:scale-105 transition-transform duration-300"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 1 }}
@@ -62,29 +62,29 @@ function Hero() {
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
-            VIDIT RAJ
+            <span className="font-poppins">VIDIT</span> <span className="elegant-heading font-playfair italic">RAJ</span>
             <br />
-            <span className="neon-text">KHENWAR</span>
+            <span className="neon-text font-poppins">KHENWAR</span>
           </motion.h1>
 
           <motion.div
-            className="text-2xl md:text-3xl mb-8 font-mono"
+            className="text-2xl md:text-3xl mb-8 font-jetbrains"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1, duration: 0.8 }}
           >
-            <span className="text-white">{typedText}</span>
-            <span className="animate-pulse text-red-500">|</span>
+            <span className="text-white font-jetbrains">{typedText}</span>
+            <span className="animate-pulse text-red-500 font-jetbrains">|</span>
           </motion.div>
 
           <motion.p
-            className="text-xl text-gray-300 max-w-2xl mx-auto mb-8"
+            className="elegant-quote text-xl text-gray-300 max-w-2xl mx-auto mb-8 font-playfair"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.2, duration: 0.8 }}
           >
-            Passionate Computer Science student crafting innovative digital experiences
-            with cutting-edge technologies and modern design principles.
+            <span className="italic-accent">Passionate</span> Computer Science student crafting <span className="emphasis-text underline-accent">innovative digital experiences</span><br/>
+            with <span className="code-style">cutting-edge technologies</span> and modern design principles.
           </motion.p>
 
           <motion.div

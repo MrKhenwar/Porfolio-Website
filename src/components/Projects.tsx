@@ -74,12 +74,12 @@ function Projects() {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl font-bold mb-4 flex items-center justify-center gap-3">
+          <h2 className="mixed-font-header text-4xl font-bold mb-4 flex items-center justify-center gap-3 font-poppins">
             <Target className="text-red-500" />
-            Featured <span className="red-gradient-text">Projects</span>
+            Featured <span className="serif-accent font-playfair italic">Projects</span>
           </h2>
-          <p className="text-gray-300 text-lg max-w-2xl mx-auto">
-            Here are some of my notable projects that showcase my skills and passion for development.
+          <p className="elegant-quote text-lg max-w-2xl mx-auto font-playfair">
+            Here are some of my <span className="italic-accent">notable projects</span> that showcase my <span className="emphasis-text underline-accent">skills and passion</span> for development.
           </p>
         </motion.div>
 
@@ -105,8 +105,8 @@ function Projects() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/100 to-transparent" />
               </div>
 
-              <h3 className="text-xl font-bold mb-2 text-white">{project.title}</h3>
-              <p className="text-gray-300 mb-4 leading-relaxed">{project.description}</p>
+              <h3 className="text-xl font-bold mb-2 text-white font-poppins hover-italic transition-all duration-300">{project.title}</h3>
+              <p className="text-gray-300 mb-4 leading-relaxed font-poppins">{project.description}</p>
 
               <div className="flex flex-wrap gap-2 mb-4">
                 {project.tech.map((tech) => (
@@ -122,7 +122,7 @@ function Projects() {
               {project.link && (
                 <motion.a
                   href={project.link}
-                  className="inline-flex items-center gap-2 text-red-400 hover:text-red-300 transition-colors font-semibold"
+                  className="inline-flex items-center gap-2 text-red-400 hover:text-red-300 transition-colors font-semibold font-poppins hover-italic"
                   whileHover={{ x: 5 }}
                 >
                   <ExternalLink size={16} />

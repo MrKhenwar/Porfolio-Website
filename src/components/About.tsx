@@ -33,19 +33,19 @@ function About() {
           className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
         >
           <motion.div variants={itemVariants}>
-            <h2 className="text-4xl font-bold mb-6 flex items-center gap-3">
+            <h2 className="mixed-font-header text-4xl font-bold mb-6 flex items-center gap-3 font-poppins">
               <Terminal className="text-red-500" />
-              About <span className="red-gradient-text">Me</span>
+              About <span className="serif-accent font-playfair italic">Me</span>
             </h2>
-            <p className="text-gray-300 text-lg leading-relaxed mb-6">
-              I'm a dynamic Computer Science student at Bennett University with a passion for
-              creating innovative digital solutions. My journey spans across web development,
-              data science, and backend technologies.
+            <p className="text-gray-300 text-lg leading-relaxed mb-6 font-poppins">
+              I'm a <span className="italic-accent">dynamic</span> Computer Science student at Bennett University with a passion for
+              creating <span className="emphasis-text underline-accent">innovative digital solutions</span>. My journey spans across <span className="code-style">web development</span>,
+              <span className="code-style">data science</span>, and <span className="code-style">backend technologies</span>.
             </p>
             <div className="grid grid-cols-2 gap-4 mb-6">
               <div className="glass p-4 rounded-lg">
-                <div className="text-2xl font-bold text-red-500">10+</div>
-                <div className="text-sm text-gray-400">Projects Completed</div>
+                <div className="text-2xl font-bold text-red-500 font-poppins">10+</div>
+                <div className="text-sm text-gray-400 font-poppins italic">Projects Completed</div>
               </div>
             </div>
             <motion.button
